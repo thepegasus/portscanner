@@ -1,19 +1,17 @@
 #!/usr/bin/python
-
 import socket
 def makeConnection(host, port):
+    #host=socket.gethostbyname(hostname)
     print "Connecting to "+host+":"+`port`
-    try:
-        s=socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-	#settimeout(value)
-        s.connect((host,port))
-	print "Connected"
-        print s.recv(1024)
-        s.close()
-    except s.timeout:
-        print "Time out"
-    except s.error:
-        print "Err"
-    
+    s=socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    s.settimeout(1)
+    conres=s.connect_ex((host,port))
+    if(conres==0):
+        print "Port "+`port`+" is open"
+    else:
+        print "Port "+`port`+" is closed"            
+    s.close()
 
-makeConnection("stackoverflow.com", 80)
+for currentport in range(79,81):
+    makeConnection("localhost", currentport)
+makeConnection("stackoverflow.com",443 )
