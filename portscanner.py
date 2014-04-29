@@ -1,7 +1,6 @@
 #!/usr/bin/python
 import socket
 def makeConnection(host, port):
-    #host=socket.gethostbyname(hostname)
     print "Connecting to "+host+":"+`port`
     s=socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     s.settimeout(1)
@@ -12,6 +11,8 @@ def makeConnection(host, port):
         print "Port "+`port`+" is closed"            
     s.close()
 
-for currentport in range(79,81):
-    makeConnection("localhost", currentport)
-makeConnection("stackoverflow.com",443 )
+scanHost=raw_input("Enter the hostname/IP: ")
+startRange=raw_input("Enter the start of port range:")
+endRange=raw_input("Enter the end of port range:")
+for currentport in range(int(startRange),int(endRange)+1):
+    makeConnection(scanHost, currentport)
